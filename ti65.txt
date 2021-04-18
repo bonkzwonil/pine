@@ -1,0 +1,33 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// Implementation of TI-65 indication, paired with 4% price changes
+// © traderbonk
+
+//@version=4
+study("sb ti/4+/4-/")
+ti=sma(close,7) / sma(close,65) 
+//plot(ti)
+tib= if ti >= 1.05
+    1
+else
+    0
+
+tibm= if ti <= 0.95
+    1
+else
+    0
+    
+cc= if close/close[1] >= 1.04 and volume>=volume[1]   
+    1
+else
+    0
+
+ccm= if close/close[1] <= 0.96 and volume>=volume[1]   
+    1
+else
+    0    
+
+plot(cc, color=color.green, title="4%+")
+plot(ccm, color=color.red, title="4%-")
+
+plot(tib, color=color.blue,title="ti65+", style=plot.style_area, transp=50)
+plot(tibm, color=color.orange,title="ti65-", style=plot.style_area, transp=50)
